@@ -1,40 +1,25 @@
 'use client'
-import { useEffect, useState } from 'react'
+
 import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup, Button, Flex, Grid, GridItem, Box, Select } from '@chakra-ui/react'
-import axios from 'axios'
 import Link from 'next/link'
-import data from '../../data/mock.json'
+import { useDispatch } from 'react-redux'
+import { AppDispatch, useAppSelector } from '@/redux/store'
+import { selectedProduct } from '@/redux/features/selectedProductSlice'
 
 export const ProductShowcaseComponent = () => {
-    const [dataProducts, setDataProducts] = useState(data)
+    const product = useAppSelector(state => state.productReducer)
+    const selected = useAppSelector(state => state.selectedProductReducer)
+    const dispatch = useDispatch<AppDispatch>()
 
-    useEffect(() => {
-        const cancelToken = axios.CancelToken.source();
-
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('https://mocki.io/v1/6f17b78a-9bd3-4f94-b0f3-2bc4ca788b9d', { cancelToken: cancelToken.token })
-                // const category = response?.data?.products?.filter(product => product.category === 'smartphones')
-                // setDataProducts(response?.data?.products)
-                console.log(response)
-            } catch (error) {
-                if (axios.isCancel(error)) { }
-                else {
-                    throw error;
-                }
-            }
-        }
-        fetchData()
-        return () => {
-            cancelToken.cancel();
-        }
-    }, [])
-    console.log(dataProducts)
+    const handleSelectedProduct = (params: number) => {
+        dispatch(selectedProduct(params))
+    }
+    console.log(selectedProduct)
     return (
         <Box>
             <Flex justifyContent='end' marginY={5}>
                 <Select placeholder='Sort by' w='100px'>
-                    <option value='option1'>Title ascending</option>
+                    <option value='option1' onClick={() => handleSelectedProduct(1)}>Title ascending</option>
                     <option value='option1'>Title descending</option>
                     <option value='option2'>Date older</option>
                     <option value='option2'>Date Latest</option>
@@ -44,7 +29,7 @@ export const ProductShowcaseComponent = () => {
             </Flex>
             <Grid templateColumns='repeat(4, 1fr)' gap={5}>
                 {
-                    dataProducts?.map((list, index) => (
+                    product?.map((list, index) => (
                         <GridItem key={index}>
                             <Link href={`/product/${list.id}`}>
                                 <Card maxW='sm'>
