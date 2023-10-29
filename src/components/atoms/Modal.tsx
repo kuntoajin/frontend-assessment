@@ -20,7 +20,7 @@ import { selectedProductUpdated } from '@/redux/features/selectedProductSlice'
 
 export const ModalComponent = ({ onClose, isOpen }: { onClose: () => void, isOpen: boolean }) => {
     const params = useParams()
-    const products = useAppSelector(state => state.productReducer)
+    const products = useAppSelector(state => state.productReducer.filtered)
 
     const [rateItem, setRateItem] = useState(0)
     const rates = [1, 2, 3, 4, 5]
@@ -29,7 +29,7 @@ export const ModalComponent = ({ onClose, isOpen }: { onClose: () => void, isOpe
 
     const handleSubmit = () => {
         dispatch(rateProduct({products, params, rateItem}))
-        dispatch(selectedProductUpdated({products, id: Number(params.params)}))
+        // dispatch(selectedProductUpdated({products, id: Number(params.params)}))
         onClose()
     }
 

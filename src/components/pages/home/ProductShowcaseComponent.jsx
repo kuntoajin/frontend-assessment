@@ -57,7 +57,7 @@ export const ProductShowcaseComponent = () => {
             console.log(filteredData)
         }
     }, [dispatch])
-
+    console.log(filteredData)
     return (
         <Box mt={10}>
             <Input onChange={e => handleSearch(e.target.value)} placeholder='Search here...' />

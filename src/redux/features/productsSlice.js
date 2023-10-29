@@ -81,9 +81,18 @@ export const productSlide = createSlice({
         rateProduct: (state, actions) => {
             // let data = actions.payload.products.filtered.filter(product => product.id === Number(actions.payload.params.params))
             // let data2 = data[0]
-            // console.log(data2.rating.rate.push)
-            state.filtered[Number(actions.payload.params.params)-1].rating.rate.push(actions.payload.rateItem)
-            console.log(JSON.parse(JSON.stringify(state.filtered)))
+            let [data] = actions.payload.products.filter(list => list.id === Number(actions.payload.params.params))
+            console.log(actions.payload.rateItem)
+            return {
+                ...state,
+                filtered: [{
+                    rating: {
+                        rate: [actions.payload.rateItem]
+                    }
+                } ]
+            }
+            // state.filtered[Number(actions.payload.params.params)-1].rating.rate.push(actions.payload.rateItem)
+            // console.log(JSON.parse(JSON.stringify(state.filtered)))
         }
     }
 })
