@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { initialState } from '../initialState'
-import data from '../../components/data/mock.json'
+import data from '../../data/mock.json'
 
 const initialState = {
     id: 0,
@@ -19,14 +18,14 @@ const initialState = {
 
 export const selectedProductSlice = createSlice({
     name: 'selectedProduct',
-    initialState,
+    initialState: {
+        value: {}
+    },
     reducers: {
-        selectedProductUpdated: (state, actions: PayloadAction<number>) => {
-            if(actions.payload) {
-                const filter = data.filter((list) => list.id === actions.payload)
-                const [filteredData] = filter
-                return { ...filteredData }
-            }
+        selectedProductUpdated: (state, actions) => {
+            console.log(actions.payload)
+            let [detail] = actions.payload.products.value.filter(product => product.id === actions.payload.id)
+            state.value = detail
         }
     }
 })

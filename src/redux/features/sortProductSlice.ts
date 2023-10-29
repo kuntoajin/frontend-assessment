@@ -1,17 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { initialState } from '../initialState'
 
 export const sortProductSlice = createSlice({
     name: 'sortProduct',
-    initialState,
+    initialState: [],
     reducers: {
-        sortProductByNameAscending: (state, actions) => {
-            const data = JSON.parse(JSON.stringify(state))
-            return state = data.sort((a,b) => a.title - b.title)
-        },
         sortProductByNameDescending: (state) => {
-            console.log('sort descending')
-            return state.sort((a,b) => b.title - a.title)
+            const data = JSON.parse(JSON.stringify(state))
+            return state = data.sort((a,b) => b.title - a.title)
         },
         sortProductByRatingHigher: (state) => {
             console.log('sort price high')
@@ -29,7 +24,6 @@ export const sortProductSlice = createSlice({
 })
 
 export const { 
-    sortProductByNameAscending, 
     sortProductByNameDescending,
     sortProductByRatingHigher,
     sortProductByRatingLower,

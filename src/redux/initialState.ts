@@ -1,3 +1,3 @@
-import data from '../components/data/mock.json'
+import data from '../data/mock.json'
 
 export const initialState = data

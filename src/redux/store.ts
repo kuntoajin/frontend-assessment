@@ -3,12 +3,14 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import productReducer from './features/productsSlice'
 import selectedProductReducer from './features/selectedProductSlice'
 import sortProductReducer from './features/sortProductSlice'
+import rateProductReducer from "./features/rateProductSlice"
 
 export const store = configureStore({
     reducer: {
         productReducer,
         selectedProductReducer,
-        sortProductReducer
+        sortProductReducer,
+        rateProductReducer
     }
 })
 
