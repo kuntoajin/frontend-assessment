@@ -12,15 +12,19 @@ import { getAllData } from '@/redux/features/productsSlice'
 
 export const ProductDetailComponent = () => {
     const params = useParams()
+    const products = useAppSelector(state => state.productReducer.value)
     const filteredProduct = useAppSelector(state => state.productReducer.filtered)
     const [product] = filteredProduct.filter(list => list.id === Number(params.params))
     const { isOpen, onOpen, onClose } = useDisclosure()
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAllData(filteredProduct))
+        if (filteredProduct) {
+            dispatch(getAllData(filteredProduct))
+        }
+        dispatch(getAllData(products))
     }, [dispatch])
-    console.log(product)
+
     return (
         <Box mt={6}>
             <BreadcrumbComponent dataLink={params.params} title={product?.title} />
@@ -46,7 +50,7 @@ export const ProductDetailComponent = () => {
                     </Flex>
                 </GridItem>
             </Grid>
-            <ModalComponent onClose={onClose} isOpen={isOpen} id={Number(params.params)} />
+            <ModalComponent onClose={onClose} isOpen={isOpen} id={product?.id} />
         </Box>
     )
 }

@@ -18,17 +18,17 @@ import { rateProduct } from '@/redux/features/productsSlice'
 import { useParams } from 'next/navigation'
 import { selectedProductUpdated } from '@/redux/features/selectedProductSlice'
 
-export const ModalComponent = ({ onClose, isOpen }: { onClose: () => void, isOpen: boolean }) => {
+export const ModalComponent = ({ onClose, isOpen, id }) => {
     const params = useParams()
     const products = useAppSelector(state => state.productReducer.filtered)
 
     const [rateItem, setRateItem] = useState(0)
     const rates = [1, 2, 3, 4, 5]
 
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch()
 
     const handleSubmit = () => {
-        dispatch(rateProduct({products, params, rateItem}))
+        dispatch(rateProduct({products, id, rateItem}))
         // dispatch(selectedProductUpdated({products, id: Number(params.params)}))
         onClose()
     }
