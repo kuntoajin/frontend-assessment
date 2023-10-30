@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Box, Container } from "@chakra-ui/react"
-import { useParams } from "next/navigation"
-import axios from 'axios'
+import { Container } from "@chakra-ui/react"
 import { ProductDetailComponent } from '@/components/pages/detail/ProductDetailComponent'
 
 const ProductDetail = () => {
