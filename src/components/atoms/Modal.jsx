@@ -4,22 +4,16 @@ import {
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalFooter,
     ModalBody,
     ModalCloseButton,
     Button,
-    useDisclosure,
 } from '@chakra-ui/react'
 import { useAppSelector } from "@/redux/store"
-import { AppDispatch, } from "@/redux/store"
 import { useDispatch } from 'react-redux'
 import { rateProduct } from '@/redux/features/productsSlice'
-import { useParams } from 'next/navigation'
-import { selectedProductUpdated } from '@/redux/features/selectedProductSlice'
 
 export const ModalComponent = ({ onClose, isOpen, id }) => {
-    const params = useParams()
     const products = useAppSelector(state => state.productReducer.filtered)
 
     const [rateItem, setRateItem] = useState(0)
@@ -29,7 +23,6 @@ export const ModalComponent = ({ onClose, isOpen, id }) => {
 
     const handleSubmit = () => {
         dispatch(rateProduct({products, id, rateItem}))
-        // dispatch(selectedProductUpdated({products, id: Number(params.params)}))
         onClose()
     }
 

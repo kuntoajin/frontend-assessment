@@ -9,7 +9,6 @@ export const productSlide = createSlice({
     },
     reducers: {
         getAllData: (state, actions) => {
-            console.log(actions.payload)
             return {
                 ...state,
                 filtered: actions.payload
@@ -42,7 +41,6 @@ export const productSlide = createSlice({
             const sortByKey = key => (a, b) => {
                 return b[key].rate > a[key].rate ? 1 : -1
             }
-            console.log(actions.payload)
             return {
                 ...state,
                 filtered: actions.payload.slice().sort(sortByKey('rating'))

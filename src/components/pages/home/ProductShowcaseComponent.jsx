@@ -1,11 +1,10 @@
 'use client'
 
-import { useMemo, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardBody, Stack, Heading, Text, Button, Flex, Grid, Box, Select, useColorMode, GridItem, Input } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useAppSelector } from '@/redux/store'
 import { useDispatch } from 'react-redux'
-import { selectedProductUpdated } from '@/redux/features/selectedProductSlice'
 import { getAllData, searchProduct, sortProductByDateLatest, sortProductByDateOldest, sortProductByNameAscending, sortProductByNameDescending, sortProductByRatingHigher, sortProductByRatingLower } from '@/redux/features/productsSlice'
 import { StarIcon } from '@chakra-ui/icons'
 import { ProductRate } from '../../atoms/Rating'
@@ -48,16 +47,14 @@ export const ProductShowcaseComponent = () => {
     const handleSearch = e => {
         setFilter(e)
         dispatch(searchProduct({ products, query: e }))
-        console.log(products)
     }
 
     useEffect(() => {
         if (filteredData.length === 0) {
             dispatch(getAllData(products))
-            console.log(filteredData)
         }
     }, [dispatch])
-    console.log(filteredData)
+
     return (
         <Box mt={10}>
             <Input onChange={e => handleSearch(e.target.value)} placeholder='Search here...' />
